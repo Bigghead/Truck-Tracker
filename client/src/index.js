@@ -5,17 +5,16 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-// import userReducer  from './store/reducers/userReducer';
+import truckReducer  from './store/reducers/truckReducer';
 
 
-// const rootReducer = combineReducers( {
-//     user: userReducer
-// } );
+const rootReducer = combineReducers( {
+    trucks: truckReducer
+} );
 
-// const store = createStore(
-//     rootReducer,
-//     applyMiddleware(thunk, logger)
-// );
+const store = createStore(
+    rootReducer
+);
 
 
 ReactDOM.render(
@@ -25,4 +24,3 @@ ReactDOM.render(
         </BrowserRouter>
     </Provider>, 
     document.getElementById('root'));
-registerServiceWorker();

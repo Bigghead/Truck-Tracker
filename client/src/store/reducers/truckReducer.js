@@ -3,7 +3,7 @@ const initialState = {
 }
 
 
-const truckReducer = ( state = initialState, actions ) => {
+const truckReducer = ( state = initialState, action ) => {
 
     switch( action.type ) {
 
@@ -12,6 +12,9 @@ const truckReducer = ( state = initialState, actions ) => {
                 ...state,
                 trucks: [ ...action.payload ]
             }
+
+        default: 
+            return state;
     }
 }
 
