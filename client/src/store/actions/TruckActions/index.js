@@ -1,4 +1,5 @@
 import * as actions from '../actions';
+import { postData } from '../../../helpers/index'
 
 export const getTrucks = () => {
 
@@ -25,18 +26,11 @@ export const addTruck = ( truckObj ) => {
 
         try {
 
-            const response = await fetch( 'http://localhost:9009/api/truck', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify( {
-                    truckName,
-                    startTime,
-                    endTime
-                } )
+            const payload = await postData( 'http://localhost:9009/api/truck', {
+                truckName,
+                startTime,
+                endTime
             } );
-            const payload  = await response.json();
             return dispatch( {
                 type: actions.ADD_TRUCK,
                 payload 

@@ -18,3 +18,22 @@ export const parseTime = ( time ) => {
         ? `${ time.toString() } am`
         : `${ ( time - 12 ).toString() } pm`
 }
+
+
+export const postData = async ( url, bodyObj ) => {
+    
+    try {
+        
+        const response = await fetch( url, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify( bodyObj )
+        } );
+
+        const data = await response.json();
+        return data;
+    
+    } catch ( e ) { console.log( e ); } 
+}

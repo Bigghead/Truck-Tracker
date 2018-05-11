@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { makeTimes } from '../helpers/index';
+import { connect } from 'react-redux';
+import { makeTimes, postData } from '../helpers/index';
 
 class JobCreate extends Component {
 
@@ -18,15 +19,31 @@ class JobCreate extends Component {
     }
 
 
-    getStartTime = ( time, e ) => {
+    getStartTime = ( e ) => {
         const { target: { value } } = e;
         const timeValue = parseInt( value.replace(/\D+/g, '') );
-        this.setState( { [ time ]: timeValue } );
+        this.setState( { startTime: timeValue } );
     }
 
-    handleSubmit = ( e ) => {
+    handleSubmit = async ( e ) => {
         e.preventDefault();
-        console.log( this.state );
+        const { personName, moveDate, moveLength, startTime } = this.state;
+        try { 
+
+            const response = await postData( 'http://localhost:9009/job', {
+                personName,
+                moveDate,
+                moveLength,
+                startTime
+            } );
+
+            // ===== update truck if successful ===== //
+
+
+        } catch ( e ) { 
+            console.log( e ); 
+            alert('No trucks are available');
+        }
     }
 
     render() {
@@ -64,4 +81,4 @@ class JobCreate extends Component {
     }
 }
 
-export default JobCreate;
+export default connect( null )( JobCreate );
