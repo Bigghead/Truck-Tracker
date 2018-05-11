@@ -6,7 +6,7 @@ const JobSchema = mongoose.Schema( {
         required: true
     },
     dateOfMove: { 
-        type    : Date,
+        type    : String,
         required: true
     },
     timeOfMove: { 

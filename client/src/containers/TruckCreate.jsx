@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addTruck } from '../store/actions/TruckActions/index'
+import { makeTimes } from '../helpers/index';
 
 
 class TruckCreate extends Component {
 
     state = {
         truckName: '',
-        startTime: 0,
-        endTime  : 0
+        startTime: 7,
+        endTime  : 7
     }
 
 
@@ -17,24 +18,6 @@ class TruckCreate extends Component {
         this.setState( { truckName: value } );
     }
 
-    makeTimes = () => {
-        
-        const times = [ 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ];
-        
-        return times.map( ( t, index ) => {
-            return <option defaultValue={ index === 0 } 
-                           key={t} 
-                           value={t}
-                           >{ this.parseTime( t )}</option>;
-        } );
-    }
-
-
-    parseTime( time ) {
-        return time <= 12 
-            ? `${ time.toString() } am`
-            : `${ ( time - 12 ).toString() } pm`
-    }
 
 
     changeTime = ( time, e ) => {
@@ -67,14 +50,14 @@ class TruckCreate extends Component {
                     <select id="startTime" name="startTime" 
                             style={  { display: 'block'}}
                             onChange={ this.changeTime.bind( this, 'startTime' ) } >
-                        { this.makeTimes() }
+                        { makeTimes() }
                     </select>
 
                     <label htmlFor="startTime">End Time ( hour )</label>
                     <select id="startTime" name="startTime" 
                             style={  { display: 'block'}}
                             onChange={ this.changeTime.bind( this, 'endTime' ) } >
-                        { this.makeTimes() }
+                        { makeTimes() }
                     </select>
 
                     <button type="submit">Create Truck</button>
