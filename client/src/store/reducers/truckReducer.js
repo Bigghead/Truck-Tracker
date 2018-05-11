@@ -21,6 +21,21 @@ const truckReducer = ( state = initialState, action ) => {
                 trucks: [ ...state.trucks, action.payload ]
             }
 
+        case actions.UPDATE_TRUCK:
+            return { 
+                ...state,
+                trucks: state.trucks.map( t => {
+                    if( t._id === action.payload._id ) {
+                        return {
+                            ...t,
+                            reservations: [ ...action.payload.reservations ]
+                        }
+                    } else { 
+                        return t;
+                    }
+                } )
+            }
+
         default: 
             return state;
     }

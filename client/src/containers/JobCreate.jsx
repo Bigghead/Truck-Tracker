@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { makeTimes, postData } from '../helpers/index';
+import { UPDATE_TRUCK } from '../store/actions/actions';
 
 class JobCreate extends Component {
 
@@ -45,11 +46,15 @@ class JobCreate extends Component {
             } );
 
             // ===== update truck if successful ===== //
+            this.props.dispatch( {
+                type   : UPDATE_TRUCK,
+                payload: response
+            } )
+
 
 
         } catch ( e ) { 
             console.log( e ); 
-            alert('No trucks are available');
         }
     }
 

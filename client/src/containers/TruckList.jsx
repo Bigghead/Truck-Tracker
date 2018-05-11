@@ -11,6 +11,7 @@ function mapStateToProps(state) {
 class TruckList extends Component {
 
     getTrucks = () => {
+        console.log(this.props)
         return this.props.trucks.map( t => {
             return <li key={ t._id }>
                 <p>{ t.truckName }</p>
