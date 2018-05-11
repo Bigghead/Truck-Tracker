@@ -3,3 +3,28 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.create-form-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.create-form {
+    margin: 20px 0;
+    border: 2px solid lightgray;
+    padding: 10px;
+    height: 400px;
+    width : 300px;
+}
+
+.create-form > span {
+    display: inline-block;
+    margin: 15px 0 10px 0;
+}
+
+.create-form > form > button {
+    display: block;
+    margin: 15px auto;
+    background-color: rgb(52, 152, 219);
+    color: white;
+}

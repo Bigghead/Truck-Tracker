@@ -54,7 +54,7 @@ class TruckCreate extends Component {
 
     render() {
         return (
-            <div>
+            <div className="create-form">
                 <span>Create Truck</span>
 
                 <form onSubmit={ this.handleSubmit }>

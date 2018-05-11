@@ -18,7 +18,7 @@ const truckReducer = ( state = initialState, action ) => {
         case actions.ADD_TRUCK:
             return {
                 ...state,
-                trucks: [ ...state.trucks, ...action.payload ]
+                trucks: [ ...state.trucks, action.payload ]
             }
 
         default: 
