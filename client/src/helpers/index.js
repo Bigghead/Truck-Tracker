@@ -30,10 +30,22 @@ export const postData = async ( url, bodyObj ) => {
                 'content-type': 'application/json'
             },
             body: JSON.stringify( bodyObj )
+        } ).then( res => {
+            if (!res.ok) {
+              switch( res.status ){
+                    case 401:
+                        throw Error('Unauthorized')
+                    case 406: 
+                        throw Error('No trucks are available');
+                    default:
+                        throw Error('Unknown error');
+              }
+            }
+            return res;
         } );
 
         const data = await response.json();
         return data;
     
-    } catch ( e ) { console.log( e ); } 
+    } catch ( e ) { alert( e ); } 
 }
