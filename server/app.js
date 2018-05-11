@@ -3,6 +3,7 @@ const PORT        = process.env.PORT || 9009;
 const bodyParser  = require('body-parser');
 const mongoose    = require('mongoose');
 const cors        = require('cors');
+const path        = require('path');
 const express     = require('express');
 const Jobs        = require('./models/job.js');
 const Trucks      = require('./models/truck.js');
@@ -14,68 +15,6 @@ const app         = express();
 // ===== MONGOOSE ===== //
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DB_URI);
-
-const trucks = [
-    { truckName: 'truck 1', startTime: 8, endTime: 16, 
-      reservations: [
-        {   
-            personName: 'Hi',
-            dateOfMove: '05/05/2018',
-            from: 12,
-            to  : 15
-        }  
-      ]      
-},
-    { truckName: 'truck 2', startTime: 9, endTime: 17, 
-      reservations: [
-        {
-            personName: 'Hello',
-            dateOfMove: '05/05/2018',
-            from: 9,
-            to  : 11
-        }, 
-        {
-            personName: 'Meep',
-            dateOfMove: '05/05/2018',
-            from: 14,
-            to  : 16
-        }  
-      ]      
-},
-    { truckName: 'truck 3', startTime: 8, endTime: 20, 
-      reservations: []        
-},
-//     { truckName: 'truck 4', startTime: 9, endTime: 5, 
-//       reservations: [
-//         {
-//             from: 13,
-//             to  : 15
-//         }  
-//       ]      
-// },
-//     { truckName: 'truck 5', startTime: 7, endTime: 3, 
-//       reservations: {
-//           from: 7,
-//           to  : 20
-//       }        
-// }   
-];
-
-
-const seedDB = async () => {
-    
-    try {
-        await Trucks.deleteMany( { } );
-        const truckas = await Promise.all( trucks.map( t => {
-            const { truckName, startTime, endTime, reservations } = t;
-            return Trucks.create( { truckName, startTime, endTime, reservations } ) 
-        } ) )
-        console.log(truckas[0].reservations);
-    } catch( e ) { console.log(e); }
-};
-
-
-// seedDB();
 
 
 // ===== MIDDLEWARES ===== //
@@ -89,7 +28,10 @@ app.use( '/api', truckRoutes );
 app.use( '/job', jobRoutes );
 
 
-
+app.use(express.static('../client/build'));	+// Express will serve up the index.html file if it doesn't recognize the route
+app.get( '*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'));
+} );
 app.listen(PORT, () => console.log('Starting on ' + PORT))
 
 

@@ -35,7 +35,6 @@ router.post( '/', async ( req, res ) => {
             ]
         } );
         
-        console.log(trucks);
         // ===== if no trucks, send empty error ===== //
         if( trucks.length === 0 ) throw new Error( 'No trucks are available' );
         
