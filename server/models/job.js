@@ -2,19 +2,19 @@ const mongoose = require('mongoose');
 
 const JobSchema = mongoose.Schema( {
     personName: { 
-        type: String,
+        type    : String,
         required: true
     },
     dateOfMove: { 
-        type: Date,
+        type    : Date,
         required: true
     },
     timeOfMove: { 
-        type: Number,
+        type    : Number,
         required: true
     },
     lengthOfMove: { 
-        type: Number,
+        type    : Number,
         required: true
     }
 } );

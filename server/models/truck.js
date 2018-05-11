@@ -2,17 +2,29 @@ const mongoose = require('mongoose');
 
 const TruckSchema = mongoose.Schema( {
     truckName: { 
-        type: String,
+        type    : String,
         required: true
     },
     startTime: { 
-        type: Number,
+        type    : Number,
         required: true
     },
     endTime: { 
-        type: Number,
+        type    : Number,
         required: true
-    }
+    },
+    jobs: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref : 'Job'
+        }
+    ],
+    reservations: [
+        { 
+            from: Number,
+            to  : Number
+        }
+    ]
 } )
 
 
