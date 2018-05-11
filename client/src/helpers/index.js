@@ -14,9 +14,9 @@ export const makeTimes = () => {
 
 
 export const parseTime = ( time ) => {
-    return time <= 12 
+    return time < 12 
         ? `${ time.toString() } am`
-        : `${ ( time - 12 ).toString() } pm`
+        : `${ ( time === 12 ? time : time - 12 ).toString() } pm`
 }
 
 
