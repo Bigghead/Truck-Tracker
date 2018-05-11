@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import getTrucks from './store/actions/GetTrucks';
+import { getTrucks } from './store/actions/TruckActions';
 
 
 import NavBar from './components/Navbar';

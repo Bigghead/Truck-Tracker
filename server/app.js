@@ -15,11 +15,11 @@ mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DB_URI);
 
 const trucks = [
-    { truckName: 'truck 1', dailyStart: 8, dailyEnd: 4 },
-    { truckName: 'truck 2', dailyStart: 9, dailyEnd: 5 },
-    { truckName: 'truck 3', dailyStart: 8, dailyEnd: 4 },
-    { truckName: 'truck 4', dailyStart: 9, dailyEnd: 5 },
-    { truckName: 'truck 5', dailyStart: 7, dailyEnd: 3 }   
+    { truckName: 'truck 1', startTime: 8, endTime: 4 },
+    { truckName: 'truck 2', startTime: 9, endTime: 5 },
+    { truckName: 'truck 3', startTime: 8, endTime: 4 },
+    { truckName: 'truck 4', startTime: 9, endTime: 5 },
+    { truckName: 'truck 5', startTime: 7, endTime: 3 }   
 ];
 
 
@@ -28,8 +28,8 @@ const seedDB = async () => {
     try {
         await Trucks.deleteMany( { } );
         await Promise.all( trucks.map( t => {
-            const { truckName, dailyStart, dailyEnd } = t;
-            return Trucks.create( { truckName, dailyStart, dailyEnd } ) 
+            const { truckName, startTime, endTime } = t;
+            return Trucks.create( { truckName, startTime, endTime } ) 
         } ) )
     } catch( e ) { console.log(e); }
 };

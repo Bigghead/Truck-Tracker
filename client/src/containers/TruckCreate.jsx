@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { addTruck } from '../store/actions/TruckActions/index'
 
-function mapStateToProps( state ) {
-    return {
-
-    };
-}
 
 class TruckCreate extends Component {
 
     state = {
         truckName: '',
-        startTime: '',
-        endTime  : ''
+        startTime: 0,
+        endTime  : 0
     }
 
 
@@ -23,22 +19,28 @@ class TruckCreate extends Component {
 
     makeTimes = () => {
         
-        const times = [ '7am', '8am', '9am', '10am', '11am', '12pm', 
-                        '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm',
-                        '8pm', '9pm' ];
+        const times = [ 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ];
         
         return times.map( ( t, index ) => {
             return <option defaultValue={ index === 0 } 
                            key={t} 
                            value={t}
-                           >{t}</option>;
+                           >{ this.parseTime( t )}</option>;
         } );
+    }
+
+
+    parseTime( time ) {
+        return time <= 12 
+            ? `${ time.toString() } am`
+            : `${ ( time - 12 ).toString() } pm`
     }
 
 
     changeTime = ( time, e ) => {
         const { target: { value } } = e;
-        this.setState( { [ time ]: value } );
+        const timeValue = parseInt( value.replace(/\D+/g, '') );
+        this.setState( { [ time ]: timeValue } );
     }
 
 
@@ -46,6 +48,7 @@ class TruckCreate extends Component {
         e.preventDefault();
         const { truckName, startTime, endTime } = this.state;
         console.log( truckName, startTime, endTime );
+        this.props.dispatch( addTruck( { truckName, startTime, endTime } ) );
     }
 
 
@@ -67,7 +70,7 @@ class TruckCreate extends Component {
                         { this.makeTimes() }
                     </select>
 
-                    <label htmlFor="startTime">Start Time ( hour )</label>
+                    <label htmlFor="startTime">End Time ( hour )</label>
                     <select id="startTime" name="startTime" 
                             style={  { display: 'block'}}
                             onChange={ this.changeTime.bind( this, 'endTime' ) } >
@@ -82,5 +85,5 @@ class TruckCreate extends Component {
 }
 
 export default connect(
-    mapStateToProps,
+    null,
 )( TruckCreate );

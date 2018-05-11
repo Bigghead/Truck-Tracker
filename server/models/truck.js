@@ -5,11 +5,11 @@ const TruckSchema = mongoose.Schema( {
         type: String,
         required: true
     },
-    dailyStart: { 
+    startTime: { 
         type: Number,
         required: true
     },
-    dailyEnd: { 
+    endTime: { 
         type: Number,
         required: true
     }
