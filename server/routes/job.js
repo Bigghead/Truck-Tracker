@@ -17,39 +17,26 @@ router.post( '/', async ( req, res ) => {
             startTime: { $lte: start },
     
             // ends later than or at same time as the end of the move 
-            endTime  : { $gte: start + end },
+            endTime  : { $gte: end },
 
-            // give all the trucks that don't have bookings first
+            
             $or: [
-                { reservations: [] },  // maybe? Not sure
-                {
-                    $and: [
-                        { reservations: {
-                            $not: {
-                                $elemMatch: {
-                                    from: { $lt: end }, 
-                                    to: { $gt: start }
-                                }
+                { reservations: [] },  // give all the trucks that don't have bookings first
+                { 
+                    reservations: {
+                        $not: {
+                            $elemMatch: {
+                                from: { $lt: end }, 
+                                to: { $gt: start }
                             }
-                        } }
-                    ]
+                        }
+                    } 
                 }
             ]
         } );
         
-        // if( trucks.length === 0 ) {
-        //     trucks = await Trucks.find( {
-        //         reservations: {
-        //             $not: {
-        //                 $elemMatch: {
-        //                     from: { $lt: end }, 
-        //                     to: { $gt: start }
-        //                 }
-        //             }
-        //         }
-        //     } )
-        // }
         console.log( trucks );
+        res.status(200).json(trucks);
 
     } catch ( err ) {
         res.status(400).json(err);

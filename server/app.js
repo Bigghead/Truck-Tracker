@@ -16,7 +16,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DB_URI);
 
 const trucks = [
-    { truckName: 'truck 1', startTime: 8, endTime: 4, 
+    { truckName: 'truck 1', startTime: 8, endTime: 16, 
       reservations: [
         {
             from: 12,
@@ -24,7 +24,7 @@ const trucks = [
         }  
       ]      
 },
-    { truckName: 'truck 2', startTime: 9, endTime: 5, 
+    { truckName: 'truck 2', startTime: 9, endTime: 17, 
       reservations: [
         {
             from: 9,
