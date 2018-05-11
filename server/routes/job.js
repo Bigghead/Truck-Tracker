@@ -5,20 +5,50 @@ const router = require('express').Router();
 
 router.post( '/', async ( req, res ) => {
 
-    const { personName, moveDate, moveLength, startTime: start } = req.body;
-
+    const { personName, moveDate, startTime: start, endTime: end } = req.body;
+    console.log( { start, end } )
     try {
 
         // ===== filter only available trucks ===== //
-        const trucks = await Trucks.find( {
+
+        let trucks = await Trucks.find( {
+
+            // starts earlier or at same time as requested
             startTime: { $lte: start },
-            reservations: {
-                $elemMatch: {
-                    from: { $lt: start },
-                    to  : { $gte: start + moveLength }
+    
+            // ends later than or at same time as the end of the move 
+            endTime  : { $gte: start + end },
+
+            // give all the trucks that don't have bookings first
+            $or: [
+                { reservations: [] },  // maybe? Not sure
+                {
+                    $and: [
+                        { reservations: {
+                            $not: {
+                                $elemMatch: {
+                                    from: { $lt: end }, 
+                                    to: { $gt: start }
+                                }
+                            }
+                        } }
+                    ]
                 }
-            }
+            ]
         } );
+        
+        // if( trucks.length === 0 ) {
+        //     trucks = await Trucks.find( {
+        //         reservations: {
+        //             $not: {
+        //                 $elemMatch: {
+        //                     from: { $lt: end }, 
+        //                     to: { $gt: start }
+        //                 }
+        //             }
+        //         }
+        //     } )
+        // }
         console.log( trucks );
 
     } catch ( err ) {

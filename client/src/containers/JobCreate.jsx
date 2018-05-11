@@ -8,12 +8,12 @@ class JobCreate extends Component {
     state = {
         personName: '',
         moveDate  : '',
-        moveLength: 0,
-        startTime : 7
+        startTime : 7,
+        endTime   : 1,
     }
 
 
-    setNameAndTime = ( val, e ) => {
+    setNameOrDate = ( val, e ) => {
         const { target: { value } } = e;
         this.setState( { [val]: value } );
     }
@@ -25,16 +25,23 @@ class JobCreate extends Component {
         this.setState( { startTime: timeValue } );
     }
 
+
+    getEndTime = ( e ) => {
+        const { target: { value } } = e;
+        this.setState( { endTime: parseInt( value ) } );
+    }
+
+
     handleSubmit = async ( e ) => {
         e.preventDefault();
-        const { personName, moveDate, moveLength, startTime } = this.state;
+        const { personName, moveDate, startTime, endTime } = this.state;
         try { 
 
             const response = await postData( 'http://localhost:9009/job', {
                 personName,
                 moveDate,
-                moveLength,
-                startTime
+                startTime,
+                endTime: startTime + endTime
             } );
 
             // ===== update truck if successful ===== //
@@ -55,11 +62,11 @@ class JobCreate extends Component {
                     <label htmlFor="personName">Name</label>
                     <input type="text" id="personName"
                            placeholder="Name of person"
-                           onChange={ this.setNameAndTime.bind( this, 'personName' ) }/>
+                           onChange={ this.setNameOrDate.bind( this, 'personName' ) }/>
 
                     <label htmlFor="jobDate">Move Date</label>
                     <input type="date"
-                           onChange={ this.setNameAndTime.bind( this, 'moveDate') }/>
+                           onChange={ this.setNameOrDate.bind( this, 'moveDate') }/>
 
                     <label htmlFor="startTime">Start Time ( hour )</label>
                     <select id="startTime" name="startTime"
@@ -72,7 +79,7 @@ class JobCreate extends Component {
                     <label htmlFor="hour">Estimated Hours</label>
                     <input type="number" 
                            id="hour"
-                           onChange={ this.setNameAndTime.bind( this, 'moveLength' ) }/>
+                           onChange={ this.getEndTime }/>
 
                     <button type="submit">Add Job</button>
                 </form>
