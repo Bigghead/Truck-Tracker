@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { parseTime } from '../helpers/index';
 
-function mapStateToProps(state) {
+function mapStateToProps( state ) {
     return {
         trucks: state.trucks.trucks
     };
@@ -11,12 +11,17 @@ function mapStateToProps(state) {
 class TruckList extends Component {
 
     getTrucks = () => {
-        console.log(this.props)
+        console.log( this.props )
         return this.props.trucks.map( t => {
             return <li key={ t._id }>
-                <p>{ t.truckName }</p>
-                <p>{ t.truckName } Assignments</p>
-                { this.getAssignments( t.reservations ) }
+                <div className="truck-container">
+                    <h5>{ t.truckName } ( { parseTime( t.startTime ) } - { parseTime(t.endTime) } )
+                    </h5>
+                    <p>Assignments: </p>
+                    { t.reservations.length === 0
+                        ? 'No Assignments'
+                        : this.getAssignments( t.reservations ) }
+                </div>
             </li>
         } )
     }
@@ -25,17 +30,17 @@ class TruckList extends Component {
     getAssignments = ( reservations ) => {
         return reservations.map( r => {
             const { personName, moveDate, from, to } = r;
-            console.log(r)
             return <p key={ r._id }>
-                { personName }, { moveDate }, { parseTime(from) }, { to - from } hours
+                { personName }, { moveDate }, { parseTime( from ) }, { to - from } { to - from === 1 ? 'hour' : 'hours' }
             </p>
-        })
+        } )
     }
 
 
     render() {
         return (
-            <div>
+            <div className="truck-list-container">
+                <h4>Trucks</h4>
                 <ul>
                     { this.getTrucks() }
                 </ul>
@@ -46,4 +51,4 @@ class TruckList extends Component {
 
 export default connect(
     mapStateToProps,
-)(TruckList);
+)( TruckList );
