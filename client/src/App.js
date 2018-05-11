@@ -3,8 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import getTrucks from './store/actions/GetTrucks';
 
 
-import Navbar from './components/Navbar';
-import TruckList from './containers/TruckList';
+import NavBar from './components/Navbar';
+import Landing from './components/Landing';
 
 class App extends Component {
 
@@ -16,10 +16,10 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <Navbar />
+                <NavBar />
                 <div className="container">
                     <Switch>
-                        <Route exact path="/" component={ TruckList } />
+                        <Route exact path="/" component={ Landing } />
                     </Switch>
                 </div>
             </div>
