@@ -9,6 +9,9 @@ export const getTrucks = () => {
 
             const response = await fetch('http://localhost:9009/api/trucks')
             const payload  = await response.json();
+            payload.forEach( res => {
+                res.reservations = res.reservations.sort( ( a, b ) => a.from > b.from )
+            } )
             return dispatch( {
                 type: actions.GET_TRUCKS,
                 payload 
