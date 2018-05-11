@@ -5,20 +5,20 @@ const JobSchema = mongoose.Schema( {
         type    : String,
         required: true
     },
-    dateOfMove: { 
+    moveDate: { 
         type    : String,
         required: true
     },
-    timeOfMove: { 
+    from: { 
         type    : Number,
         required: true
     },
-    lengthOfMove: { 
+    to: { 
         type    : Number,
         required: true
     }
 } );
 
-const Jobs = mongoose.model('Job', JobSchema);
+// const Jobs = mongoose.model('Job', JobSchema);
 
-module.exports = Jobs;
+module.exports = JobSchema;

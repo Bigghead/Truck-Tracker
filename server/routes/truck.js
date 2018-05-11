@@ -6,7 +6,7 @@ router.get( '/trucks', async ( req, res ) => {
 
     try {
     
-        const trucks = await Trucks.find( {} );
+        const trucks = await Trucks.find( {} ).populate('reservations');
         res.status(200).json(trucks)    
 
     } catch ( e ) { console.log( e ); }

@@ -6,7 +6,7 @@ const router = require('express').Router();
 router.post( '/', async ( req, res ) => {
 
     const { personName, moveDate, startTime: start, endTime: end } = req.body;
-    console.log( { start, end } )
+    // console.log( req.body )
     try {
 
         // ===== filter only available trucks ===== //
@@ -35,10 +35,20 @@ router.post( '/', async ( req, res ) => {
             ]
         } );
         
-        console.log( trucks );
-        res.status(200).json(trucks);
+        console.log(trucks);
+        // ===== if no trucks, send empty error ===== //
+        if( trucks.length === 0 ) throw new Error( 'No trucks are available' );
+        
+        // ===== update the first truck we get ===== //
+        const truck = trucks[0];
+        truck.reservations.push( { personName, moveDate, from: start, to: end } );
+        truck.markModified('reservations');
+        await truck.save();
+
+        res.status(200).json(truck);
 
     } catch ( err ) {
+        console.log(err)
         res.status(400).json(err);
     }
 

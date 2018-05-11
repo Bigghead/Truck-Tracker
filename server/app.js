@@ -18,7 +18,9 @@ mongoose.connect(process.env.DB_URI);
 const trucks = [
     { truckName: 'truck 1', startTime: 8, endTime: 16, 
       reservations: [
-        {
+        {   
+            personName: 'Hi',
+            dateOfMove: '05/05/2018',
             from: 12,
             to  : 15
         }  
@@ -27,23 +29,22 @@ const trucks = [
     { truckName: 'truck 2', startTime: 9, endTime: 17, 
       reservations: [
         {
+            personName: 'Hello',
+            dateOfMove: '05/05/2018',
             from: 9,
             to  : 11
         }, 
         {
+            personName: 'Meep',
+            dateOfMove: '05/05/2018',
             from: 14,
             to  : 16
         }  
       ]      
 },
-//     { truckName: 'truck 3', startTime: 8, endTime: 4, 
-//       reservations: [
-//         {
-//             from: 10,
-//             to  : 11
-//         }
-//       ]        
-// },
+    { truckName: 'truck 3', startTime: 8, endTime: 20, 
+      reservations: []        
+},
 //     { truckName: 'truck 4', startTime: 9, endTime: 5, 
 //       reservations: [
 //         {
@@ -65,15 +66,16 @@ const seedDB = async () => {
     
     try {
         await Trucks.deleteMany( { } );
-        await Promise.all( trucks.map( t => {
+        const truckas = await Promise.all( trucks.map( t => {
             const { truckName, startTime, endTime, reservations } = t;
             return Trucks.create( { truckName, startTime, endTime, reservations } ) 
         } ) )
+        console.log(truckas[0].reservations);
     } catch( e ) { console.log(e); }
 };
 
 
-seedDB();
+// seedDB();
 
 
 // ===== MIDDLEWARES ===== //
