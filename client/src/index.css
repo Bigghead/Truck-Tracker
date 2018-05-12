@@ -4,6 +4,10 @@ body {
   font-family: sans-serif;
 }
 
+nav {
+    background-color: #38435a;
+}
+
 .create-form-container {
     display: flex;
     justify-content: space-evenly;

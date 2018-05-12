@@ -6,6 +6,13 @@ import { makeTimes } from '../helpers/index';
 
 class TruckCreate extends Component {
 
+    constructor( props ){
+        super( props );
+        this.truckInput = React.createRef();
+        this.truckStart = React.createRef();
+        this.truckEnd   = React.createRef();
+    }
+
     state = {
         truckName: '',
         startTime: 7,
@@ -32,6 +39,14 @@ class TruckCreate extends Component {
         const { truckName, startTime, endTime } = this.state;
         console.log( truckName, startTime, endTime );
         this.props.dispatch( addTruck( { truckName, startTime, endTime } ) );
+        this.clearForm();
+    }
+
+
+    clearForm = () => {
+        this.truckInput.current.value = '';
+        this.truckStart.current.value = 7;
+        this.truckEnd.current.value   = 7;        
     }
 
 
@@ -44,19 +59,22 @@ class TruckCreate extends Component {
                     <label htmlFor="truckName">Name</label>
                     <input type="text" id="truckName" 
                             placeholder="Name of truck"
-                            onChange={ this.handleInput } />
+                            onChange={ this.handleInput }
+                            ref={ this.truckInput } />
 
                     <label htmlFor="startTime">Start Time ( hour )</label>
                     <select id="startTime" name="startTime" 
                             style={  { display: 'block'}}
-                            onChange={ this.changeTime.bind( this, 'startTime' ) } >
+                            onChange={ this.changeTime.bind( this, 'startTime' ) }
+                            ref={ this.truckStart } >
                         { makeTimes() }
                     </select>
 
                     <label htmlFor="startTime">End Time ( hour )</label>
                     <select id="startTime" name="startTime" 
                             style={  { display: 'block'}}
-                            onChange={ this.changeTime.bind( this, 'endTime' ) } >
+                            onChange={ this.changeTime.bind( this, 'endTime' ) }
+                            ref={ this.truckEnd } >
                         { makeTimes() }
                     </select>
 
