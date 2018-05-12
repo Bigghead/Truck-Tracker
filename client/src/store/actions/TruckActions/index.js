@@ -7,7 +7,7 @@ export const getTrucks = () => {
 
         try {
 
-            const response = await fetch('http://localhost:9009/api/trucks')
+            const response = await fetch('/api/trucks')
             const payload  = await response.json();
             payload.forEach( res => {
                 res.reservations = res.reservations.sort( ( a, b ) => a.from > b.from )
@@ -29,7 +29,7 @@ export const addTruck = ( truckObj ) => {
 
         try {
 
-            const payload = await postData( 'http://localhost:9009/api/truck', {
+            const payload = await postData( '/api/truck', {
                 truckName,
                 startTime,
                 endTime

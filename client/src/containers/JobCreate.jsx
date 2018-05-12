@@ -38,7 +38,7 @@ class JobCreate extends Component {
         const { personName, moveDate, startTime, endTime } = this.state;
         try { 
 
-            const response = await postData( 'http://localhost:9009/job', {
+            const response = await postData( '/job', {
                 personName,
                 moveDate,
                 startTime,

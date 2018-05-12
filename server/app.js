@@ -28,7 +28,7 @@ app.use( '/api', truckRoutes );
 app.use( '/job', jobRoutes );
 
 
-app.use(express.static('../client/build'));	+// Express will serve up the index.html file if it doesn't recognize the route
+app.use(express.static(path.resolve(__dirname, '..', 'client', 'build')));	+// Express will serve up the index.html file if it doesn't recognize the route
 app.get( '*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'));
 } );
