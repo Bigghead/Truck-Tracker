@@ -5,7 +5,14 @@ import { UPDATE_TRUCK } from '../store/actions/actions';
 
 class JobCreate extends Component {
 
-
+    constructor( props ) {
+        super( props );
+        this.nameInput      = React.createRef();
+        this.dateInput      = React.createRef();
+        this.startTimeInput = React.createRef();
+        this.endTimeInput   = React.createRef();
+        
+    }
     state = {
         personName: '',
         moveDate  : '',
@@ -51,12 +58,23 @@ class JobCreate extends Component {
                 payload: response
             } )
 
+            this.clearForm();
+
 
 
         } catch ( e ) { 
             console.log( e ); 
         }
     }
+
+
+    clearForm = () => {
+        this.nameInput.current.value      = '',
+        this.dateInput.current.value      = '',
+        this.startTimeInput.current.value = 7,
+        this.endTimeInput.current.value   = 1
+    }
+
 
     render() {
         return (
@@ -67,16 +85,19 @@ class JobCreate extends Component {
                     <label htmlFor="personName">Name</label>
                     <input type="text" id="personName"
                            placeholder="Name of person"
-                           onChange={ this.setNameOrDate.bind( this, 'personName' ) }/>
+                           onChange={ this.setNameOrDate.bind( this, 'personName' ) }
+                           ref={ this.nameInput }/>
 
                     <label htmlFor="jobDate">Move Date</label>
                     <input type="date"
-                           onChange={ this.setNameOrDate.bind( this, 'moveDate') }/>
+                           onChange={ this.setNameOrDate.bind( this, 'moveDate') }
+                           ref={ this.dateInput }/>
 
                     <label htmlFor="startTime">Start Time ( hour )</label>
                     <select id="startTime" name="startTime"
                             style={ { display: 'block' } }
                             onChange={ this.getStartTime }
+                            ref={ this.startTimeInput }
                          >
                         { makeTimes() }
                     </select>
@@ -84,7 +105,8 @@ class JobCreate extends Component {
                     <label htmlFor="hour">Estimated Hours</label>
                     <input type="number" 
                            id="hour"
-                           onChange={ this.getEndTime }/>
+                           onChange={ this.getEndTime }
+                           ref={ this.endTimeInput }/>
 
                     <button type="submit">Add Job</button>
                 </form>

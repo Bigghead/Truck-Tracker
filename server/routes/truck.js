@@ -6,7 +6,9 @@ router.get( '/trucks', async ( req, res ) => {
 
     try {
     
-        const trucks = await Trucks.find( {} ).populate('reservations');
+        const trucks = await Trucks.find( {} )
+                                   .sort( { truckName: 'ascending' } )
+                                   .populate('reservations');
         res.status(200).json(trucks)    
 
     } catch ( e ) { console.log( e ); }
