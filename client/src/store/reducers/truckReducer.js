@@ -28,7 +28,7 @@ const truckReducer = ( state = initialState, action ) => {
                     if( t._id === action.payload._id ) {
                         return {
                             ...t,
-                            reservations: [ ...action.payload.reservations ]
+                            reservations: [ ...action.payload.reservations.sort( ( a, b ) => a.from > b.from ) ]
                         }
                     } else { 
                         return t;
