@@ -1,18 +1,24 @@
-const mongoose = require('mongoose');
+const mongoose  = require('mongoose');
+const JobSchema = require('./job'); 
 
 const TruckSchema = mongoose.Schema( {
     truckName: { 
-        type: String,
+        type    : String,
         required: true
     },
-    dailyStart: { 
-        type: Number,
+    startTime: { 
+        type    : Number,
         required: true
     },
-    dailyEnd: { 
-        type: Number,
+    endTime: { 
+        type    : Number,
         required: true
-    }
+    },
+    reservations: [
+        {
+            type: JobSchema
+        }
+    ]
 } )
 
 

@@ -2,23 +2,23 @@ const mongoose = require('mongoose');
 
 const JobSchema = mongoose.Schema( {
     personName: { 
-        type: String,
+        type    : String,
         required: true
     },
-    dateOfMove: { 
-        type: Date,
+    moveDate: { 
+        type    : String,
         required: true
     },
-    timeOfMove: { 
-        type: Number,
+    from: { 
+        type    : Number,
         required: true
     },
-    lengthOfMove: { 
-        type: Number,
+    to: { 
+        type    : Number,
         required: true
     }
 } );
 
-const Jobs = mongoose.model('Job', JobSchema);
+// const Jobs = mongoose.model('Job', JobSchema);
 
-module.exports = Jobs;
+module.exports = JobSchema;
